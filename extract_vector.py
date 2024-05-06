@@ -9,12 +9,11 @@ import pickle
 import numpy as np
 
 # Define model
-# VGG16 is a Convolutional Neural Network (CNN)
 def get_extract_model():
     # I use weights = "imagenet" means that the model has been pre trained with ImageNet dataset
     vgg16_model = VGG16(weights="imagenet")
 
-    # Fine turning the model
+    # Only using the fc1 layer of VGG16
     extract_model = Model(inputs=vgg16_model.inputs, outputs=vgg16_model.get_layer("fc1").output)
     return extract_model
 
@@ -45,7 +44,7 @@ def extract_vector(model, image_path):
     img = Image.open(image_path)
     img_tensor = image_preprocess(img)
 
-    # Feature extraction
+    # Actual feature extraction
     vector = model.predict(img_tensor)[0]
 
     # Vector normalization by divide to it's normalize vector
