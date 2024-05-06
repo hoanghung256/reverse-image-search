@@ -7,3 +7,6 @@
 # Logs and temporary files
 *.log
 *.tmp
+
+# Ouput
+/output
