@@ -1,4 +1,4 @@
-import extract_vector as ev
+import extract_image_feature as ev
 
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -27,11 +27,12 @@ indexes = np.argsort(distances)[:n]
 
 results = [(paths[index], distances[index]) for index in indexes]
 
+# Setup plt
 axes = []
 grid_size = 3
 fig = plt.figure(figsize = (10, 5))
 
-# Display searching image
+# Display searching image first
 axes.append(fig.add_subplot(grid_size, grid_size, 1))
 axes[-1].set_title("Search Image")
 plt.imshow(Image.open(search_image))
