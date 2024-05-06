@@ -67,6 +67,12 @@ if __name__ == "__main__":
         vectors.append(image_vector)
         paths.append(full_image_path)
 
+    # Create output folder
+    output_folder = "output"
+    if not os.path.exists(output_folder):
+        # Create if doesn't exist
+        os.makedirs(output_folder)    
+
     vector_file = "output/vectors.pkl"
     path_file = "output/paths.pkl"
 
