@@ -6,7 +6,7 @@
 
 ## Main Flow
 
--  Define model: I use the **VGG16**, a **Convolution Neural Network (CNN)** with weights="imagenet" means this VGG16 variant has been trained with ImageNet dataset.
+-  Define model: I use the **VGG16**, a **Convolution Neural Network (CNN)** with weights="imagenet" means this VGG16 variant that pre-trained with ImageNet dataset.
 
 -  Preprocessing the image: process the image to match VGG16 input requires.
 
