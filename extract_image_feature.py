@@ -54,14 +54,13 @@ def extract_vector(model, image_path):
 
 # Prevent python run this code when import to another file
 if __name__ == "__main__":
-    dataset_folder = "dataset"
+    dataset_folder = "dataset-handmade"
     model = get_extract_model()
 
     vectors = []
     paths = []
     
-    # This is only a demo with 50 first image
-    for image_path in os.listdir(dataset_folder)[:50]:
+    for image_path in os.listdir(dataset_folder):
         full_image_path = os.path.join(dataset_folder, image_path)
         image_vector = extract_vector(model, full_image_path)
         vectors.append(image_vector)
