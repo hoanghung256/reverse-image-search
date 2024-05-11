@@ -1,8 +1,8 @@
 # Reverse Image Search using Content-based Image Retrieval (CBIR)
 
-[Data Set](https://www.kaggle.com/datasets/theaayushbajaj/cbir-dataset)
+[Data Set](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-small)
 
--  This is a 242.96 MB of animal images
+-  This is a 242.96 MB of E-commerce product images
 
 ## Main Flow
 
