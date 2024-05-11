@@ -6,7 +6,7 @@ import pickle
 import numpy as np
 
 # Hard define searching image
-search_image = "dataset/689.jpg"
+search_image = "path/to/your/image.jpg"
 
 # Init model
 model = ev.get_extract_model()
@@ -22,7 +22,7 @@ paths = pickle.load(open("output/paths.pkl", "rb"))
 distances = np.linalg.norm(vectors - search_vector, axis=1)
 
 # Sort and get n results with nearest distance
-n = 5
+n = 8
 indexes = np.argsort(distances)[:n]
 
 results = [(paths[index], distances[index]) for index in indexes]
