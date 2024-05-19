@@ -1,31 +1,29 @@
-import extract_image_feature as ev
-
+from io import BytesIO
+import requests
+from sentence_transformers import SentenceTransformer
+from qdrant_client import QdrantClient, models
 import matplotlib.pyplot as plt
 from PIL import Image
-import pickle
-import numpy as np
 
-# Hard define searching image
-search_image = "path/to/your/image.jpg"
+def url_to_image(url):
+	response = requests.get(url)
+	buffered = BytesIO(response.content)
+	return Image.open(buffered)
 
-# Init model
-model = ev.get_extract_model()
+# Hard define for test image
+test_image = 'test_images/...'
 
-# Extract feature for input image
-search_vector = ev.extract_vector(model, search_image)
+model = SentenceTransformer("clip-ViT-B-32")
+client = QdrantClient(url='http://localhost:6333')
+search_vector = model.encode(Image.open(test_image))
 
-# Load vectors from vectors.pkl
-vectors = pickle.load(open("output/vectors.pkl", "rb"))
-paths = pickle.load(open("output/paths.pkl", "rb"))
-
-# Calculate distances from search_vector to all vectors
-distances = np.linalg.norm(vectors - search_vector, axis=1)
-
-# Sort and get n results with nearest distance
-n = 8
-indexes = np.argsort(distances)[:n]
-
-results = [(paths[index], distances[index]) for index in indexes]
+results = client.search(
+	collection_name='souvenirs',
+	query_vector=search_vector,
+	with_payload=True,
+	score_threshold=0.5,
+	limit=10
+)
 
 # Setup plt
 axes = []
@@ -35,10 +33,10 @@ fig = plt.figure(figsize = (10, 5))
 # Display searching image first
 axes.append(fig.add_subplot(grid_size, grid_size, 1))
 axes[-1].set_title("Search Image")
-plt.imshow(Image.open(search_image))
+plt.imshow(Image.open(test_image))
 
 # Display results
-for i in range(n):
+for i in range(10):
 	draw_image = results[i]
 	axes.append(fig.add_subplot(grid_size, grid_size, i + 2))
 	# Title of results is distance to of each to search image 
@@ -47,4 +45,3 @@ for i in range(n):
 
 fig.tight_layout()	
 plt.show()
-
